@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数学動画ネタ ブレインストーミング結果</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']],
+  },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre']
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+  :root {
+    --analysis: #1565C0;
+    --analysis-bg: #E3F2FD;
+    --geometry: #2E7D32;
+    --geometry-bg: #E8F5E9;
+    --algebra: #6A1B9A;
+    --algebra-bg: #F3E5F5;
+    --engineering: #E65100;
+    --engineering-bg: #FFF3E0;
+    --teacher: #C62828;
+    --teacher-bg: #FFEBEE;
+    --pm: #37474F;
+    --pm-bg: #ECEFF1;
+    --top: #F57F17;
+    --top-bg: #FFFDE7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    line-height: 1.7;
+    padding: 0 0 60px 0;
+  }
+  header {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  header h1 { font-size: 2em; margin-bottom: 10px; }
+  header p { font-size: 1em; opacity: 0.85; max-width: 700px; margin: 0 auto; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  .reference {
+    background: #fff;
+    border-left: 5px solid #1a237e;
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 30px auto;
+    max-width: 1100px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .reference h2 { color: #1a237e; font-size: 1.2em; margin-bottom: 12px; }
+  .reference ol { padding-left: 20px; }
+  .reference li { margin-bottom: 6px; }
+  .reference strong { color: #1a237e; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid;
+  }
+  .section-header .badge {
+    display: inline-block;
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .section-header h2 { font-size: 1.4em; }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: transform 0.15s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+  .card-header {
+    padding: 16px 22px;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  .card-body { padding: 20px 22px; }
+  .card-body h4 {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 16px 0 6px 0;
+    opacity: 0.7;
+  }
+  .card-body h4:first-child { margin-top: 0; }
+  .card-body p { margin-bottom: 8px; }
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+  .exercise-box {
+    background: #fafafa;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 6px;
+    font-size: 0.95em;
+  }
+  .novelty-box {
+    background: #fffde7;
+    border-left: 3px solid #f9a825;
+    padding: 10px 14px;
+    margin-top: 6px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.93em;
+  }
+  .analysis .card-header { background: var(--analysis); }
+  .analysis .section-header { border-color: var(--analysis); }
+  .analysis .badge { background: var(--analysis); }
+  .analysis .tag { background: var(--analysis-bg); color: var(--analysis); }
+  .geometry .card-header { background: var(--geometry); }
+  .geometry .section-header { border-color: var(--geometry); }
+  .geometry .badge { background: var(--geometry); }
+  .geometry .tag { background: var(--geometry-bg); color: var(--geometry); }
+  .algebra .card-header { background: var(--algebra); }
+  .algebra .section-header { border-color: var(--algebra); }
+  .algebra .badge { background: var(--algebra); }
+  .algebra .tag { background: var(--algebra-bg); color: var(--algebra); }
+  .engineering .card-header { background: var(--engineering); }
+  .engineering .section-header { border-color: var(--engineering); }
+  .engineering .badge { background: var(--engineering); }
+  .engineering .tag { background: var(--engineering-bg); color: var(--engineering); }
+  .teacher .card-header { background: var(--teacher); }
+  .teacher .section-header { border-color: var(--teacher); }
+  .teacher .badge { background: var(--teacher); }
+  .teacher .tag { background: var(--teacher-bg); color: var(--teacher); }
+  .pm .card-header { background: var(--pm); }
+  .pm .section-header { border-color: var(--pm); }
+  .pm .badge { background: var(--pm); }
+  .pm .tag { background: var(--pm-bg); color: var(--pm); }
+  .ranking-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.15s;
+  }
+  .ranking-card:hover { transform: translateY(-2px); }
+  .rank-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #fff;
+  }
+  .rank-1 .rank-num { background: linear-gradient(135deg, #FFD700, #FFA000); }
+  .rank-2 .rank-num { background: linear-gradient(135deg, #B0BEC5, #78909C); }
+  .rank-3 .rank-num { background: linear-gradient(135deg, #CD7F32, #A0522D); }
+  .rank-other .rank-num { background: #546E7A; }
+  .rank-body { padding: 16px 20px; flex: 1; }
+  .rank-body h3 { font-size: 1.1em; margin-bottom: 6px; }
+  .rank-body .stars { color: #F9A825; letter-spacing: 1px; }
+  .rank-meta { font-size: 0.85em; color: #777; margin-top: 4px; }
+  .rank-scores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .rank-scores span {
+    background: #f5f5f5;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.82em;
+  }
+  .pm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .pm-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 18px 20px;
+    border-top: 4px solid var(--pm);
+  }
+  .pm-card h3 { font-size: 1em; margin-bottom: 8px; color: var(--pm); }
+  .pm-card p { font-size: 0.92em; margin-bottom: 6px; }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4em; }
+    .ranking-card { flex-direction: column; }
+    .rank-num { min-width: auto; padding: 10px; }
+    .pm-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>数学動画ネタ ブレインストーミング結果</h1>
+  <p>6人のエージェント（解析学者・幾何学者・代数学者・工学者・高校教師・プロダクトマネージャー）による全35ネタの提案と総合ランキング</p>
+</header>
+
+<div class="container">
+<div class="reference">
+  <h2>参考動画の構造パターン</h2>
+  <p style="margin-bottom:10px;">「<strong>一升瓶の積分 〜半分飲んだらどこまで減る？〜</strong>」を基準とする。</p>
+  <ol>
+    <li><strong>日常の身近な疑問</strong> — 一升瓶のお酒を半分飲んだとき、どこまで減っているか？</li>
+    <li><strong>数学でモデル化</strong> — 瓶の形をPower Logistic Functionでモデル化</li>
+    <li><strong>本格的な計算</strong> — 回転体の体積公式 \(V = \pi \int [f(x)]^2\,dx\) で積分</li>
+    <li><strong>意外な結果</strong> — 半分の量 = 底から12.7cm（瓶の高さの1/3以下！）</li>
+    <li><strong>高校レベルの演習問題</strong> — \(\displaystyle\int \frac{e^x}{1+e^x}\,dx\) の置換積分を出題</li>
+  </ol>
+</div>
+</div>
+
+<!-- ===== SECTION 1: 解析学者 ===== -->
+<div class="container analysis">
+<div class="section-header">
+  <span class="badge">解析学者</span>
+  <h2>微積分・微分方程式・関数解析の視点</h2>
+</div>
+
+<div class="card">
+  <div class="card-header">A1. 缶コーヒーの微分方程式 〜飲み頃60℃は何分後？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>自販機で買った熱い缶コーヒー（約85℃）。猫舌の人が飲める60℃になるのは何分後？冬の屋外と夏のオフィスで全然違うはず。さらに「手で持ってると冷めるのが早い気がする」のは本当か？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学1〜2年</span>ニュートンの冷却法則</p>
+    \[\frac{dT}{dt} = -k(T - T_{\mathrm{env}})\]
+    <p>の解析解 \(T(t) = T_{\mathrm{env}} + (T_0 - T_{\mathrm{env}})\,e^{-kt}\)。手で持つ場合は熱伝導の境界条件が変わり、\(k\) が時間変動する非自律系に拡張。</p>
+    <h4>意外な結果</h4>
+    <p>手で持つと冷却定数 \(k\) が<strong>約1.4倍</strong>になり、飲み頃到達が<strong>2〜3分早まる</strong>。しかし「片手持ち」と「両手包み」では差がほとんどない（接触面積が飽和するため）。気温20℃の室内では約4分で飲み頃、気温5℃の屋外では約2分半。環境温度が10℃下がるごとに冷却速度は約25%上がる。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数III）:</strong> 80℃のお湯が20℃の部屋に置かれている。10分後に50℃だった。30分後の温度を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> ニュートンの冷却法則自体は有名だが、「手で持つことで境界条件が変わる」切り口で定量分析した動画・記事はほぼ存在しない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">A2. ホットケーキの熱拡散方程式 〜なぜ端だけ焦げるのか〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>ホットケーキを焼くと端の方が先に焦げて中央は白っぽい。均一に焼くにはどうすればいい？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学2〜3年</span>熱拡散方程式（放物型偏微分方程式）を円盤領域で解く。</p>
+    \[\frac{\partial u}{\partial t} = \alpha\,\nabla^2 u\]
+    <p>ベッセル関数 \(J_0(r)\) による固有関数展開が現れる。</p>
+    <h4>意外な結果</h4>
+    <p>端が先に焦げるのは「フライパンの温度ムラ」が主因ではなく、<strong>「生地の端は薄いので熱が上面まで早く到達する」</strong>という厚みの効果が支配的。均一に焼く最適解は「生地を落としてから15秒待って弱火にする」という時間制御。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数B）:</strong> 等比級数 \(\displaystyle\sum_{n=0}^{N}\left(\frac{1}{2}\right)^n\) の部分和を求め、\(N\to\infty\) での極限値を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 偏微分方程式でホットケーキを定量モデル化した解説はほぼない。日常の料理からベッセル関数が出てくる意外性。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">A3. エスカレーターの流体力学 〜片側空けは本当に速いのか？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>「右側を空けて左側に立つ」マナーのエスカレーター。歩く人のために片側を空けると、全体の輸送人数は増えるのか減るのか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学2〜3年</span>待ち行列理論（M/M/1, M/M/2モデル比較）とLWR交通流モデル</p>
+    \[\frac{\partial \rho}{\partial t} + \frac{\partial}{\partial x}\bigl(\rho\, v(\rho)\bigr) = 0\]
+    <h4>意外な結果</h4>
+    <p>片側空けだと輸送効率は<strong>約30%低下</strong>する。「歩く人は速いが、間隔を広く取るため密度が低い」のが原因。ロンドン交通局の2016年実験結果とも一致。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数B）:</strong> 1分間に \(\lambda\) 人がエスカレーターに到着する。1列で乗ると1人あたり \(t_1\) 秒、2列では \(t_2\) 秒。全員の待ち時間の合計をそれぞれ求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> LWR交通流モデルや待ち行列理論で定量的に「30%」を導出する日本語コンテンツはほぼ存在しない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">A4. 洗濯物のフーリエ解析 〜乾燥時間を支配する固有値〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>Tシャツは2時間で乾くのにジーンズは5時間かかる。厚さが2倍なら乾燥時間も2倍？それとも4倍？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学1〜2年</span>拡散方程式を平板モデルで解く。</p>
+    \[\frac{\partial c}{\partial t} = D\,\nabla^2 c\]
+    <p>フーリエ級数展開により \(c(x,t) = \sum a_n \cos\!\left(\frac{n\pi x}{L}\right) \exp\!\left(-\frac{Dn^2\pi^2 t}{L^2}\right)\) となり、乾燥時間は厚さ \(L\) の<strong>2乗に比例</strong>。</p>
+    <h4>意外な結果</h4>
+    <p>厚さ2倍 → 乾燥時間<strong>約4倍</strong>（2乗則）。ジーンズ（約1.2mm）はTシャツ（約0.5mm）の約2.4倍の厚さなので、乾燥時間は \(2.4^2 \approx 5.8\) 倍。「裏返して干す」と拡散境界層が変わり、<strong>10〜15%早く乾く</strong>ことも導出可能。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数III）:</strong> \(f(t) = e^{-at} + \dfrac{1}{4}e^{-4at} + \dfrac{1}{9}e^{-9at}\) について、\(t\) が十分大きいとき \(f(t) \approx e^{-at}\) とみなせる理由を説明し、\(f(t) = 0.01\) となる \(t\) を \(a=1\) のとき求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 拡散方程式のフーリエ展開から「厚さの2乗則」を導き、裏返し干しの効果まで定量化する数学コンテンツは見当たらない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">A5. 満員電車のパッキング密度 〜乗車率200%の物理〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>「乗車率180%」とニュースで聞くが、実際に1両に何人？人間を「変形する楕円体」としてモデル化すると理論上の限界は何%か？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学1年+応用</span>2次元ランダムパッキング問題の連続体近似。楕円のパッキング密度の飽和関数。ロジスティック微分方程式</p>
+    \[\frac{dN}{dt} = rN\left(1 - \frac{N}{K}\right)\]
+    <h4>意外な結果</h4>
+    <p>人間の断面積を楕円（肩幅45cm × 奥行25cm）とすると、ランダムパッキングでは \(1\,\mathrm{m}^2\) あたり約6.5人が理論限界。乗車率100%は約3.3人/m² なので、<strong>理論限界は約乗車率200%</strong>。全員が同じ方向を向くと密度が約15%上がる。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 面積 \(S\) の部屋に直径 \(a\) の円形コースターを敷き詰める。正方形配置と六方最密配置を比較せよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 楕円パッキングと圧縮関数で「理論上の限界乗車率」を導出するアプローチは新しい。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 2: 幾何学者 ===== -->
+<div class="container geometry">
+<div class="section-header">
+  <span class="badge">幾何学者</span>
+  <h2>空間・形・対称性・トポロジーの視点</h2>
+</div>
+
+<div class="card">
+  <div class="card-header">B1. バナナの微分幾何学 〜曲率 \(\kappa\) で測る果物の個性〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>バナナはなぜ曲がっているのか？どのくらい曲がっているのかを「数値」で表せるか？他の果物（きゅうり、ピーマン）の「曲がり具合」と比較できるか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学2年</span>微分幾何学の曲率</p>
+    \[\kappa(s) = \left|\frac{d\mathbf{T}}{ds}\right|\]
+    <p>バナナの中心線を写真から座標データとして抽出し、スプライン補間して \(\kappa(s)\) を計算。「全曲率」\(\displaystyle\int \kappa(s)\,ds\)。ガウス・ボネの定理。</p>
+    <h4>意外な結果</h4>
+    <p>バナナの曲率は一定ではなく、中央部で最大（\(\kappa \approx 0.05\,\mathrm{cm}^{-1}\)）、両端で小さい。<strong>EUには実際に「バナナの曲率規制」が存在した</strong>（2009年廃止）。全曲率で比較：バナナ（約120°）&gt; エビ（約90°）&gt; きゅうり（約30°）。人間の背骨は約70°で、バナナとエビの間。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数III）:</strong> 放物線 \(y = x^2\) 上の点 \((t,\,t^2)\) における曲率 \(\kappa(t)\) を求め、\(\kappa\) が最大となる \(t\) の値を求めよ。<br>
+      ヒント: \(\displaystyle\kappa = \frac{|y''|}{(1+y'^{\,2})^{3/2}}\)
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> EU規制は雑学として知られるが、微分幾何学の曲率でバナナを実測・他の物体と比較するコンテンツは見つからない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">B2. 靴紐のトポロジー 〜最短経路は数学が知っている〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>靴紐の通し方にはクリスクロス、ストレート、ディスプレイなど色々。どの通し方が一番紐が短くて済む？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校〜大学1年+トポロジー</span>グラフ理論（最短経路問題）と3次元幾何。穴の位置を座標として与え、各通し方を辺の集合として記述。紐の交差はブレイド群 \(B_n\) で分類。</p>
+    <h4>意外な結果</h4>
+    <p>最短はクリスクロスではなく<strong>「ボウタイ（蝶ネクタイ型）」</strong>パターン。しかし実用上は緩みやすい。「最短かつ締まりやすい」の最適解は「セグメンテッドストレート」。6段の靴で全パターン列挙すると、紐の長さの差は<strong>最大約20%</strong>。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数I）:</strong> 幅 \(2a\)、段間隔 \(h\) の靴に6段の穴がある。クリスクロスとストレートの紐の全長を \(a,\,h\) で表し、どちらが短いか比較せよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 日本語で数学的に詳しく扱ったコンテンツはほとんどない。ブレイド群との接続を語るものは皆無。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">B3. 移動ソファ問題 〜L字廊下を通る最大のソファは？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>引っ越しで大きなソファをL字型の廊下の角で曲がらせたい。通れるか通れないか、やってみないとわからない？いや、数学で答えが出る。</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学3〜4年（問題設定は中学生でもわかる）</span>移動ソファ問題（Moving Sofa Problem）。ハマーズレイのソファ面積</p>
+    \[\frac{\pi}{2} + \frac{2}{\pi} \approx 2.2074\]
+    <p>2024年にJineon Baekが最適解であることを証明。包絡線、変分法、最適制御理論。</p>
+    <h4>意外な結果</h4>
+    <p>単純な長方形なら最大面積1だが、形を工夫すると<strong>面積2.2074...まで増やせる</strong>（2倍以上！）。最適な形は直感ではまず思いつかない不思議な形。<strong>1966年に提起され、2024年にようやく解決</strong>した超難問。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数II）:</strong> 幅1の廊下のL字角を、半径 \(r\) の半円形のテーブルが通過できる条件を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 2024年の解決を踏まえた解説動画は日本語ではまだ少ない。「引っ越し」という超日常的な入口から入るコンテンツは見当たらない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">B4. ストローのトポロジー 〜穴は1個？2個？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>「ドーナツとマグカップは同じ」というトポロジーの話。ではストローの穴は何個？SNSで定期的にバズるこの問題に、数学者が厳密に答える。</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学3年（直感的説明可能）</span>ホモロジー群 \(H_n(X)\)。ストローを円筒面 \(S^1 \times [0,1]\) としてモデル化し、ベッチ数 \(\beta_1 = 1\) を計算。</p>
+    <h4>意外な結果</h4>
+    <p>数学的にはストローの穴は<strong>「1つ」</strong>。ストローを少しずつ短くすると極限で「リング」になり穴の数は変わらない。「長さ0のストロー = リング」であり穴は1つのまま。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 正十二面体の頂点 \(V\)、辺 \(E\)、面 \(F\) を数え、\(V - E + F = 2\) を確認。ドーナツ型ではこの値がいくつになるか。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> ホモロジー群で厳密に計算する日本語動画はほぼない。「穴の定義」を深掘りしズボンやTシャツに拡張する展開も新鮮。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">B5. ピザの幾何学 〜中心を外して切っても平等になる奇跡〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>ピザを8等分の放射切りするとき、中心からずれた点を通して切ってしまった。「1つ飛ばし」で取れば同じ量になるって本当？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学2年</span>ピザ定理（Pizza Theorem）。\(n \geq 3\) で成立。チェビシェフ多項式の直交性、フーリエ級数の消去。</p>
+    <h4>意外な結果</h4>
+    <p><strong>3本以上の等角切りなら、中心からどんなにずれても1つ飛ばしで必ず同じ量。</strong>2本（4ピース）では不成立。「なぜ3本以上で突然成り立つのか」の背後にフーリエ級数の消去が潜む。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数III）:</strong> 半径 \(r\) の円を、中心から距離 \(d\) だけずれた点を通る2本の垂直な直線で4領域に分割。最大と最小の面積差を \(d,\,r\) で表せ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 日本語での解説はごくわずか。「なぜ3本以上で成立するのか」をフーリエ的に説明するコンテンツは皆無。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 3: 代数学者 ===== -->
+<div class="container algebra">
+<div class="section-header">
+  <span class="badge">代数学者</span>
+  <h2>群論・体論・合同式・グラフ理論の視点</h2>
+</div>
+
+<div class="card">
+  <div class="card-header">C1. じゃんけんと有限体 \(\mathbb{F}_3\) 〜mod 3で読み解く最適戦略〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>じゃんけんには完全にランダムに出す以外に良い戦略はないのか？人間の「クセ」を数学的に利用できるか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校〜大学1年</span>有限体 \(\mathbb{F}_3 = \{0,\,1,\,2\}\)（グー=0, チョキ=1, パー=2）。勝敗判定は \(a - b \pmod{3}\) で統一的に記述。マルコフ連鎖で相手の遷移確率を推定。</p>
+    <h4>意外な結果</h4>
+    <p>人間は「同じ手を3回以上連続で出す」確率が理論値 \(\left(\frac{1}{3}\right)^3 \approx 3.7\%\) より低い（<strong>実測約0.8%</strong>）。「相手が2回連続で同じ手を出したら次は違う手が来る」と仮定するだけで<strong>勝率が33% → 38%に上がる</strong>。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> \(x^2 \equiv 1 \pmod{3}\) を満たす \(x\) をすべて求めよ。\(x^2 \equiv 2 \pmod{3}\) を満たす \(x\) が存在しないことを示せ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 有限体 \(\mathbb{F}_3\) の代数構造と結びつけた解説はほぼない。勝敗判定が「mod 3の引き算」で統一的に書ける視点は代数学者ならでは。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">C2. ルービックキューブと群論 〜4325京通りを20手で解く数学〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>ルービックキューブをどんなにメチャクチャに混ぜても、最大20手で解けるって本当？なぜ「20」なのか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学2〜3年</span>ルービックキューブ群（位数 \(\approx 4.3 \times 10^{19}\)）。ケイリーグラフ上の直径 = 「神の数字」= 20。共役類、コセット分解。</p>
+    <h4>意外な結果</h4>
+    <p>2010年にGoogleの計算資源で証明。対称性で約55億通りに帰着してもなお35CPU年。<strong>人間の最良アルゴリズムは平均約55手で、神の20手との差は「人間の認知の限界」</strong>を表す。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 正三角形の回転（0°, 120°, 240°）と3本の対称軸による裏返しの6つの操作について、すべての積表（乗積表）を完成させよ。（二面体群 \(D_3\)）
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「なぜ20手なのか」を群論の直径問題として厳密に解説する日本語コンテンツはほぼない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">C3. クレジットカード番号の線形代数 〜16桁に隠された検算の仕組み〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>クレジットカードの16桁の番号、適当に入力してもエラーになる。どうやって「正しい番号」と「適当な番号」を見分けている？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校〜大学1年</span>Luhnアルゴリズム。重みベクトル \(\mathbf{w} = (2,1,2,1,\ldots,2,1)\) との内積を \(\bmod\,10\) で検算。\(\mathbb{Z}/10\mathbb{Z}\) 環上のパリティ検査。ハミング距離。</p>
+    <h4>意外な結果</h4>
+    <p>「隣接2桁の入れ替え」は<strong>100%検出</strong>できるが、「2つ離れた桁の入れ替え」は検出できないケースあり。<strong>16桁のうち有効な番号は \(\frac{1}{10}\)。</strong></p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 7桁の数 \(a_1 a_2 \cdots a_7\) に対して \(\displaystyle\sum_{i=1}^{7}(8-i)\,a_i\) を11で割った余りが0となる検査桁 \(a_7\) を求めよ。\(1\,2\,3\,4\,5\,X_7\) のとき \(X_7\) を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「なぜこの重みベクトルなのか」を線形代数で分析する日本語コンテンツはほぼない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">C4. しりとりの代数的グラフ理論 〜全単語を使い切れるか？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>しりとりで「すべての単語を1回ずつ使って一周できるか？」50音でオイラー路は存在するか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学1〜2年</span>有向グラフのオイラー路の存在条件。隣接行列 \(A\)、ラプラシアン行列 \(L = D - A\)、MATRIX-TREE定理。</p>
+    <h4>意外な結果</h4>
+    <p>日本語46文字のグラフでは<strong>「ぬ」で始まる単語が極端に少なくオイラー路は存在しない</strong>。しかし「ぬ」で始まる単語を<strong>3語追加するだけで存在可能</strong>に。英語でも \(Q \to U\) の偏りで存在しない。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 5つの頂点を持つ有向グラフでオイラー回路が存在する具体例を1つ作り確認せよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 実際の辞書データでラプラシアンの固有値から「なぜ存在しないか」「どの文字がボトルネックか」を特定するコンテンツは見当たらない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">C5. 曜日を3秒で当てる代数学 〜\(\mathbb{Z}/7\mathbb{Z}\) の魔法〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>「2050年1月1日は何曜日？」暗算で即答できるか？\(\bmod\,7\) の計算だけで曜日が出せる。</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校〜大学1年</span>ツェラーの公式を剰余環 \(\mathbb{Z}/7\mathbb{Z}\) の視点で再構築。グレゴリオ暦の400年周期 = 20871週（余り0日）の構造。</p>
+    <h4>意外な結果</h4>
+    <p>\(400\text{年} = 146097\text{日} = 20871 \times 7\)。<strong>「13日の金曜日」は400年間で688回あり、全曜日中最多。</strong>最少は土曜日の684回。閏年規則の3段階条件分岐が \(\bmod\,7\) と噛み合わない結果。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 2026年3月1日は日曜日。各月の1日が何曜日か、\(\bmod\,7\) で求めよ。（ヒント: 各月の日数を7で割った余りに注目）
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「なぜ \(\bmod\,7\) でうまくいくのか」を剰余環の代数構造から説明するコンテンツはほぼない。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 4: 工学者 ===== -->
+<div class="container engineering">
+<div class="section-header">
+  <span class="badge">工学者</span>
+  <h2>身の回りの技術・製品の裏にある数学</h2>
+</div>
+
+<div class="card">
+  <div class="card-header">D1. エレベーターの微分方程式 〜10人乗ったら何秒損する？〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>オフィスビルのエレベーターで各階停止にイライラ。何人乗ると「階段の方が早い」？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学初年度</span>期待停止回数</p>
+    \[E[\text{停止回数}] = N - N\left(\frac{N-1}{N}\right)^n\]
+    <p>等比数列の和（数B）、微分による最適化（数III）。</p>
+    <h4>意外な結果</h4>
+    <p>20階建て・10人で期待停止階数は<strong>約8.8階</strong>（全体の44%）。5人でも4.6階。<strong>6階以下なら階段の方が高確率で早い。</strong></p>
+    <div class="exercise-box">
+      <strong>演習問題（数A・数B）:</strong> 10階建てで3人が1階から乗車。各人が2〜10階のいずれかで等確率で降りるとき、停止回数の期待値を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「何人乗ったら何回止まるか」を確率で計算し「階段との損益分岐点」まで出す動画は存在しない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">D2. スマホの"親指比" 〜ラグランジュ未定乗数法で最適画面を設計〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>スマホの画面比は16:9から19.5:9へ。「片手で親指が届く範囲」と「画面面積の最大化」を同時に満たす最適な縦横比は？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">大学レベル</span>ラグランジュ未定乗数法（制約付き最適化）。楕円の方程式 \(\displaystyle\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\) と面積（数III・数C）。偏微分の概念。</p>
+    <h4>意外な結果</h4>
+    <p>親指の可動域を楕円弧でモデル化し最適化すると、最適比は<strong>約19.3:9</strong>。現在の主流（19.5:9）はほぼ最適解。<strong>メーカーは経験的にこの数学的最適解に収束していた。</strong></p>
+    <div class="exercise-box">
+      <strong>演習問題（数III or 数II）:</strong> 対角線長が15.5cmで一定の長方形の面積が最大になる縦横比を求めよ。\(2:1\) のときと比較せよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「親指の可動域を楕円でモデル化して最適化」という切り口は存在しない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">D3. 電子レンジの冷たい点 〜\(\sin\) 波が作る"加熱されない座標"〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>電子レンジでお弁当を温めると、熱い部分とぬるい部分ができる。なぜ？「絶対に温まらない点」は存在するのか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校物理+数II・数III</span>定在波（\(\sin\) 関数の重ね合わせ）。2変数関数の零点</p>
+    \[f(x,y) = \sin\!\left(\frac{2\pi x}{\lambda}\right) \sin\!\left(\frac{2\pi y}{\lambda}\right) = 0\]
+    <p>波長と周波数 \(c = f\lambda\)。積和公式。</p>
+    <h4>意外な結果</h4>
+    <p>マイクロ波（2.45GHz）の波長は約12.2cm。定在波形成で<strong>約6.1cm間隔で「完全にエネルギーがゼロの節」が格子状に並ぶ</strong>。直径6cm以下の食べ物を節に置くと理論上は永遠に温まらない。<strong>回転テーブルはこの数学的必然を力技で解決する装置。</strong></p>
+    <div class="exercise-box">
+      <strong>演習問題（数II）:</strong> \(y = \sin x + \sin 2x\) のグラフを描き、\(0 \leq x \leq 2\pi\) で \(y = 0\) となる \(x\) をすべて求めよ。<br>
+      ヒント: \(\sin x\,(1 + 2\cos x) = 0\) と因数分解できる。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「定在波の節の座標を三角関数で計算しムラの位置を予測する」教育コンテンツはほぼない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">D4. ラウンドアバウトの数学 〜曲率半径15mで事故が75%減る理由〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>日本でも増えているラウンドアバウト。信号がないのに事故が減るのはなぜ？円の大きさはどう決まっている？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数III発展・大学レベル+高校物理</span>曲率と曲率半径 \(\kappa = \frac{1}{R}\)。遠心力 \(F = \frac{mv^2}{R}\)。摩擦力との連立不等式</p>
+    \[v \leq \sqrt{\mu g R}\]
+    <h4>意外な結果</h4>
+    <p>\(R = 15\,\mathrm{m},\;\mu \approx 0.7\) で \(v \leq \sqrt{0.7 \times 9.8 \times 15} \approx\) <strong>36.1 km/h</strong>。つまり<strong>物理的に時速36km以上出せない設計</strong>。信号は「守るかどうかは人間次第」だが、曲率は物理法則を通じて安全を「保証」している。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数I・物理融合）:</strong> 半径 \(R\) の円形トラックを質量 \(m\) の車が等速走行。摩擦係数 \(\mu\) のとき滑らない最大速度を \(R,\,m,\,\mu,\,g\) で表せ。\(R=20\,\mathrm{m},\;\mu=0.5\) で最大速度を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「曲率半径の設計値が数学的にどう事故防止を保証しているか」を計算で示す教育コンテンツはない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">D5. ノイキャンの限界を積分で証明する 〜なぜ100%消音できないのか〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>ノイズキャンセリングイヤホンは「逆の音を出して消す」と言われるが、なぜ完全な無音にならないのか？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">高校数II+大学（フーリエ）</span>フーリエ変換の初歩。逆位相 \(\sin x + \sin(x + \pi) = 0\)。遅延時間と波の合成。打ち消し率</p>
+    \[\text{打ち消し率} = |\cos(\pi f \Delta t)|\]
+    <h4>意外な結果</h4>
+    <p>\(\Delta t = 0.3\,\mathrm{ms}\) の場合、<strong>1000Hz以下の低音は90%以上消せるが、4000Hz付近ではわずか17%</strong>。人間の声の子音が消えにくいのはこの数学的限界。「完全な静寂」には \(\Delta t = 0\) が必要だが因果律により物理的に不可能。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数II）:</strong> \(f(x) = \sin x + \sin(x + \theta)\) を和積公式で変形し、\(f(x) = 0\) が全ての \(x\) で成り立つ \(\theta\) の条件を求めよ。\(\theta = \dfrac{5\pi}{6}\) のとき振幅を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「遅延時間と周波数の関係式から打ち消し率を定量計算する」数学的アプローチの教育コンテンツはほとんどない。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 5: 高校教師 ===== -->
+<div class="container teacher">
+<div class="section-header">
+  <span class="badge">高校教師</span>
+  <h2>生徒が「え、そうなの！？」と驚く切り口</h2>
+</div>
+
+<div class="card">
+  <div class="card-header">E1. じゃんけんトーナメントの確率論 〜実力ゼロでも優勝できる数学的理由〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>64人のじゃんけんトーナメントで「じゃんけん弱い」子が優勝する確率は？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数A・数II</span>独立試行の確率 \((0.4)^6\)。条件付き確率。対数を用いた指数方程式。</p>
+    <h4>意外な結果</h4>
+    <p>勝率40%の"弱者"の優勝確率は \((0.4)^6 = 0.004096 \approx\) <strong>244人に1人</strong>。4回トーナメントやれば弱者でもほぼ1回は優勝。勝率30%でも \((0.3)^6 \approx 0.00073\) で<strong>1370人に1人は優勝する</strong>。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A・数II）:</strong> \(2^n\) 人参加トーナメントで勝率 \(p\) の選手が優勝する確率を \(n,\,p\) で表せ。\(p=0.4\) のとき0.1%以下になる最小の \(n\) を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「トーナメント形式で弱者が何回に1回優勝するか」を計算し、直感を覆す教育コンテンツはない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">E2. ピザを"本当に"等しく切る数学 〜直径切りは不公平だった〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>放射状に等分しても中心はパン生地ばかり、外側はチーズたっぷり。公平な切り方は？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数I〜数III</span>扇形の面積 \(S = \frac{1}{2}r^2\theta\)。同心円分割 \(r_k = R\sqrt{\frac{k}{n}}\)。定積分。</p>
+    <h4>意外な結果</h4>
+    <p>「外周30%の環状部分」にピザ面積の<strong>51%が集中</strong>（\(1 - 0.7^2 = 0.51\)）。4人で等面積に分けるには半径 \(R\) と \(\frac{R}{\sqrt{2}}\) の円で切り、外側を2等分。<strong>「見た目は不公平、数学的には完全公平」。</strong></p>
+    <div class="exercise-box">
+      <strong>演習問題（数I・数A）:</strong> 半径 \(R\) の円を面積が等しい3つの同心円領域に分割。内側の半径 \(r_1\) を求めよ。（答: \(r_1 = \dfrac{R}{\sqrt{3}}\)）
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 「トッピングの公平分配のために同心円分割を使う」食の実用問題を面積計算で解く切り口は見当たらない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">E3. エスカレーターで歩くと本当に早いのか？ 〜等差数列が暴く非効率〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>「全員立つべき」vs「歩くべき」。全員の合計移動時間を最小化するのはどちら？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数B・数I・数II</span>等差数列の和 \(\displaystyle S_n = \frac{n(n+1)}{2}\)。不等式の証明。一次関数のグラフと交点。</p>
+    <h4>意外な結果</h4>
+    <p><strong>30人以上並ぶ状況では全員両側に立つ方が総所要時間が約28%短縮。</strong>歩く人個人は得をするが集団全体では損。「ナッシュ均衡だが社会的最適ではない」= 囚人のジレンマそのもの。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数B・数I）:</strong> \(n\) 人が1列 vs 2列で並ぶときの総待ち時間を比較し、1列が不利になる条件を \(n\) の不等式で示せ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 待ち行列の総待ち時間を等差数列の和で定量化し、不等式で損益分岐人数を求める動画はない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">E4. 早押しクイズの期待値 〜"勘で押す"が正解になる数学的条件〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>クイズ番組で問題文がまだ途中なのにボタンを押す人がいる。正解の自信が何割あったら押すべき？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数A・数I・数II</span>期待値</p>
+    \[E = p \times (\text{得点}) - (1-p) \times (\text{ペナルティ})\]
+    <p>不等式 \(E > 0\) の条件。関数の増減と最大値。</p>
+    <h4>意外な結果</h4>
+    <p>正解+10点、誤答-5点の場合、\(E > 0\) の条件は \(p > \frac{5}{15} = \frac{1}{3}\)。つまり<strong>正解の自信が33%しかなくても押すのが期待値的に正解</strong>。相手が強いほど「博打押し」が数学的に正当化される。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A・数I）:</strong> 正解10点、不正解5点減点。正解確率 \(p\) のとき期待値 \(E\) を \(p\) の式で表せ。\(E > 0\) の \(p\) の範囲と、\(p = 0.5\) の期待値を求めよ。
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 期待値と不等式で最適押しタイミングを導出し、相手の実力に応じた閾値を関数で表す定式化は教育コンテンツとしてほぼ存在しない。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">E5. 13日の金曜日は本当に多いのか？ 〜\(\bmod\,7\) が暴くカレンダーの偏り〜</div>
+  <div class="card-body">
+    <h4>日常の疑問</h4>
+    <p>13日が金曜日になる頻度は他の曜日と同じ？多い気がするのは気のせい？</p>
+    <h4>使う数学</h4>
+    <p><span class="tag">数A</span>合同式 \(\bmod\,7\)。ツェラーの公式。グレゴリオ暦の400年周期 \(= 146097\text{日} = 20871 \times 7\)。</p>
+    <h4>意外な結果</h4>
+    <p>400年間で13日が最も多い曜日は<strong>金曜日（688回）。最少は土曜日（684回）。</strong>差はわずか4回だが、<strong>13日の金曜日は数学的に"本当に"最多</strong>。閏年規則の3段階条件分岐が \(\bmod\,7\) と噛み合わない結果。</p>
+    <div class="exercise-box">
+      <strong>演習問題（数A）:</strong> 2026年1月1日は木曜日。2026年の各月の13日の曜日をすべて求めよ。（ヒント: 各月の日数を7で割った余りに注目）
+    </div>
+    <div class="novelty-box">
+      <strong>新規性:</strong> 結果だけ述べる記事は多いが、400年分の \(\bmod\) 計算を追体験させる教材は盲点。
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 6: プロダクトマネージャー ===== -->
+<div class="container pm">
+<div class="section-header">
+  <span class="badge">一般目線</span>
+  <h2>プロダクトマネージャー — 「数学の動画だ」と身構えずにクリックしたくなるか？</h2>
+</div>
+
+<div class="pm-grid">
+  <div class="pm-card">
+    <h3>F1. エスカレーターで歩くvs立つ</h3>
+    <p><strong>クリック心理:</strong> 毎日通勤で使う人全員が「自分のこと」として受け取れる</p>
+    <p><strong>意外な結果:</strong> 歩いている自分が実は全員の足を引っ張っている</p>
+    <p><span class="tag">通勤者</span><span class="tag">行動経済学好き</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F2. コンビニおにぎりの三角形</h3>
+    <p><strong>クリック心理:</strong> 「損しているかも」という消費者心理を刺激</p>
+    <p><strong>意外な結果:</strong> 丸みのある三角形を純粋な三角形で計算すると数%〜十数%の過大評価</p>
+    <p><span class="tag">コスパ意識</span><span class="tag">食べ物好き</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F3. ラーメンのフーフー最適回数</h3>
+    <p><strong>クリック心理:</strong> 誰でもやったことがある動作 × 実用性</p>
+    <p><strong>意外な結果:</strong> 最初の数回が最も効果大、ある程度冷めると効果激減</p>
+    <p><span class="tag">グルメ好き</span><span class="tag">生活の豆知識</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F4. 宝くじの連番vsバラ</h3>
+    <p><strong>クリック心理:</strong> 年末の時事性、「自分は損している側では？」</p>
+    <p><strong>意外な結果:</strong> 期待値は同じ。「何を買っているか」が変わるだけ</p>
+    <p><span class="tag">宝くじ購入者</span><span class="tag">資産形成層</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F5. スーパーのまとめ買い損得</h3>
+    <p><strong>クリック心理:</strong> 毎日の行動 × 「騙されているかも」</p>
+    <p><strong>意外な結果:</strong> 廃棄ロス含む実質コストではバラ買いが安いケースも</p>
+    <p><span class="tag">節約主婦</span><span class="tag">一人暮らし</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F6. バック駐車vs前向き駐車</h3>
+    <p><strong>クリック心理:</strong> ドライバーの永遠の論争を「数学で解決」</p>
+    <p><strong>意外な結果:</strong> 滞在時間で最適解が変わる</p>
+    <p><span class="tag">ドライバー</span><span class="tag">カーライフ系</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F7. 一列並びvs複数列</h3>
+    <p><strong>クリック心理:</strong> 「自分の列だけ遅い」は共通体験</p>
+    <p><strong>意外な結果:</strong> 一列式の方が最大待ち時間を数学的に最小化できる</p>
+    <p><span class="tag">買い物好き</span><span class="tag">効率化志向</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F8. マラソンのペース配分</h3>
+    <p><strong>クリック心理:</strong> ランニングブーム × 自己ベスト欲求</p>
+    <p><strong>意外な結果:</strong> 前半1%速く走ると後半は3%以上遅くなる非線形関係</p>
+    <p><span class="tag">ランナー</span><span class="tag">スポーツ好き</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F9. 朝型vs夜型の勉強効率</h3>
+    <p><strong>クリック心理:</strong> 受験生・社会人全員の「自分ごと」</p>
+    <p><strong>意外な結果:</strong> 「朝型が得」ではなく「自分の型に合わせることが得」</p>
+    <p><span class="tag">受験生</span><span class="tag">社会人</span><span class="tag">保護者</span></p>
+  </div>
+  <div class="pm-card">
+    <h3>F10. テトリスのピース出現確率</h3>
+    <p><strong>クリック心理:</strong> 「あの理不尽さの正体を知りたい」</p>
+    <p><strong>意外な結果:</strong> 現代テトリスは7種1セット。古いゲームだけの話だった</p>
+    <p><span class="tag">ゲーム好き</span><span class="tag">懐かしいゲーム</span></p>
+  </div>
+</div>
+</div>
+
+<!-- ===== SECTION 7: 総合ランキング ===== -->
+<div class="container">
+<div class="section-header" style="border-color: var(--top);">
+  <span class="badge" style="background: var(--top);">TOP 10</span>
+  <h2>総合ランキング</h2>
+</div>
+<p style="margin-bottom:20px; color:#666;">全エージェントの評価を統合。評価基準: 入口の身近さ / 意外性 / 計算の面白さ / 演習への落とし込み / 新規性</p>
+
+<div class="ranking-card rank-1">
+  <div class="rank-num">1</div>
+  <div class="rank-body">
+    <h3>電子レンジの温めムラ（工学者提案 D3）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 工学者, PM | 毎日使う家電 → 定在波 × 三角関数 → 6.1cm間隔の「永遠に温まらない座標」 → \(\sin\) 方程式（数II）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-2">
+  <div class="rank-num">2</div>
+  <div class="rank-body">
+    <h3>バナナの曲率（幾何学者提案 B1）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 幾何学者, 解析学者 | バナナ → 微分幾何の曲率 \(\kappa\) → EU規制が実在・背骨との比較 → 曲率公式（数III）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-3">
+  <div class="rank-num">3</div>
+  <div class="rank-body">
+    <h3>移動ソファ問題（幾何学者提案 B3）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 幾何学者, 代数学者 | 引っ越しあるある → 変分法 → 2024年解決・面積 \(\frac{\pi}{2}+\frac{2}{\pi}\) → 円と不等式（数II）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">4</div>
+  <div class="rank-body">
+    <h3>クレジットカード番号の秘密（代数学者提案 C3）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 代数学者, 高校教師 | 毎日使うカード → \(\bmod\,10\) ・線形代数 → 有効番号は \(\frac{1}{10}\) → mod計算（数A）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">5</div>
+  <div class="rank-body">
+    <h3>エスカレーターの効率（教師+解析学者提案 A3/E3）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 解析学者, 高校教師, PM（3エージェント推薦）| 毎日の通勤 → 待ち行列・数列 → 30%低下・囚人のジレンマ → 等差数列の和（数B）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">6</div>
+  <div class="rank-body">
+    <h3>ノイキャンの消音限界（工学者提案 D5）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 工学者 | イヤホンの疑問 → フーリエ・位相 → 4000Hzで17%しか消えない → 和積公式（数II）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">7</div>
+  <div class="rank-body">
+    <h3>エレベーターの停止回数（工学者提案 D1）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 工学者 | 通勤あるある → 確率・期待値 → 44%の階に停止 → 期待値（数A）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">8</div>
+  <div class="rank-body">
+    <h3>靴紐の最短経路（幾何学者提案 B2）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 幾何学者 | 身近な靴 → グラフ理論・幾何 → 最大20%の差 → 三平方の定理（数I）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">9</div>
+  <div class="rank-body">
+    <h3>しりとりの完全ルート（代数学者提案 C4）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 代数学者 | 遊びの数学 → オイラー路・行列 \(L = D - A\) → 「ぬ」がボトルネック → グラフ理論（数A）</p>
+  </div>
+</div>
+
+<div class="ranking-card rank-other">
+  <div class="rank-num">10</div>
+  <div class="rank-body">
+    <h3>洗濯物の乾燥2乗則（解析学者提案 A4）</h3>
+    <div class="rank-scores">
+      <span>入口 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>意外性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>計算 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>演習 <strong class="stars">&#9733;&#9733;&#9733;&#9733;</strong></span>
+      <span>新規性 <strong class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</strong></span>
+    </div>
+    <p class="rank-meta">推薦: 解析学者 | 毎日の家事 → 拡散方程式 → 厚さ2倍で乾燥 \(2^2=4\) 倍 → 指数関数（数III）</p>
+  </div>
+</div>
+
+</div>
+
+<footer style="text-align:center; padding:40px 20px; color:#999; font-size:0.85em;">
+  Generated by ClaudeCompany Multi-Agent Brainstorming | 2026-03-01
+</footer>
+
+</body>
+</html>
